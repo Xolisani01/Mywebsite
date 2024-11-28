@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engineering Services</title>
-  <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -31,7 +31,11 @@
             background-color: #555;
         }
         .container {
+            display: none;
             padding: 20px;
+        }
+        .container.active {
+            display: block;
         }
         .row {
             display: flex;
@@ -65,17 +69,38 @@
         .footer-icons a:hover {
             color: #ddd;
         }
+        .menu-toggle {
+            display: none;
+            background-color: #444;
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            nav {
+                display: none;
+                flex-direction: column;
+            }
+            nav a {
+                padding: 10px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Engineering Services</h1>
     </header>
+    <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
+        <a href="#home" onclick="showPage('home')">Home</a>
+        <a href="#services" onclick="showPage('services')">Services</a>
+        <a href="#products" onclick="showPage('products')">Products</a>
+        <a href="#contact" onclick="showPage('contact')">Contact</a>
     </nav>
     <div class="container" id="home">
         <h2>Welcome to Our Engineering Services</h2>
@@ -145,6 +170,24 @@
             alert("Total amount: $" + total + ". Proceeding to checkout...");
             // Here you would integrate with a payment gateway
         }
+
+        function showPage(pageId) {
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Show the home page by default
+        showPage('home');
     </script>
 </body>
 </html>
+
+
