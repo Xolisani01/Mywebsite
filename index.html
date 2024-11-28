@@ -22,8 +22,15 @@
         }
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             background-color: #444;
+            padding: 0 10px;
+        }
+        nav .nav-center {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
         }
         nav a {
             color: white;
@@ -81,6 +88,20 @@
             text-align: center;
             cursor: pointer;
         }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .nav-right button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            cursor: pointer;
+        }
+        .nav-right button:hover {
+            background-color: #555;
+        }
         @media (max-width: 600px) {
             nav {
                 display: none;
@@ -102,10 +123,19 @@
     </header>
     <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
     <nav>
-        <a href="#home" onclick="showPage('home')">Home</a>
-        <a href="#services" onclick="showPage('services')">Services</a>
-        <a href="#products" onclick="showPage('products')">Products</a>
-        <a href="#contact" onclick="showPage('contact')">Contact</a>
+        <img src="img/logo.jpg" alt="Logo">
+        <div class="nav-center">
+            <a href="#home" onclick="showPage('home')">Home</a>
+            <a href="#services" onclick="showPage('services')">Services</a>
+            <a href="#products" onclick="showPage('products')">Products</a>
+            <a href="#contact" onclick="showPage('contact')">Contact</a>
+        </div>
+        <div class="nav-right">
+            <button id="registerBtn" onclick="register()">Register</button>
+            <button id="loginBtn" onclick="login()">Login</button>
+            <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+            <button id="cartBtn" onclick="showCart()" style="display:none;">Cart</button>
+        </div>
     </nav>
     <div class="container" id="home">
         <h2>Welcome to Our Engineering Services</h2>
@@ -154,6 +184,11 @@
         <p>Email: info@engineeringservices.com</p>
         <p>Phone: +123 456 7890</p>
     </div>
+    <div class="container" id="cart" style="display:none;">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
     <footer>
         <div class="footer-icons">
             <a href="https://facebook.com" target="_blank">Facebook</a>
@@ -164,6 +199,7 @@
     </footer>
     <script>
         let cart = [];
+        let loggedIn = false;
 
         function addToCart(product, price) {
             cart.push({ product, price });
@@ -187,6 +223,39 @@
         function toggleMenu() {
             const nav = document.querySelector('nav');
             nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function register() {
+            alert("Register functionality to be implemented.");
+        }
+
+        function login() {
+            loggedIn = true;
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('cartBtn').style.display = 'block';
+            alert("Logged in successfully.");
+        }
+
+        function logout() {
+            loggedIn = false;
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('registerBtn').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('cartBtn').style.display = 'none';
+            alert("Logged out successfully.");
+        }
+
+        function showCart() {
+            showPage('cart');
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - $${item.price}`;
+                cartItems.appendChild(li);
+            });
         }
 
         // Show the home page by default
