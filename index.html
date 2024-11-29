@@ -183,12 +183,24 @@
         <input type="text" id="username" placeholder="Username"><br>
         <input type="password" id="password" placeholder="Password"><br>
         <button onclick="login()">Login</button>
+        <p id="loginError" style="color:red; display:none;">Incorrect username or password.</p>
     </div>
     <div class="container" id="registerPage" style="display:none;">
         <h2>Register</h2>
         <input type="text" id="newUsername" placeholder="Username"><br>
         <input type="password" id="newPassword" placeholder="Password"><br>
         <button onclick="registerUser()">Register</button>
+    </div>
+    <div class="container" id="userProfile" style="display:none;">
+        <h2>User Profile</h2>
+        <p>Username: <span id="userNameDisplay"></span></p>
+        <p>Status: <span id="userStatus"></span></p>
+        <button onclick="editProfile()">Edit Profile</button>
+        <div id="editProfile" style="display:none;">
+            <input type="text" id="updatedUsername" placeholder="New Username"><br>
+            <input type="password" id="updatedPassword" placeholder="New Password"><br>
+            <button onclick="updateProfile()">Update</button>
+        </div>
     </div>
     <footer>
         <div class="footer-icons">
@@ -200,8 +212,9 @@
     </footer>
 
     <script>
-        let cart = [];
+        let users = [];
         let loggedIn = false;
+        let currentUser = null;
 
         function addToCart(product, price) {
             cart.push({ product, price });
@@ -222,15 +235,10 @@
         }
 
         function toggleMenu() {
-            const navCenter = document.querySelector('.nav-center');
             const navRight = document.querySelector('.nav-right');
-            
-            // Toggle the visibility of the buttons on mobile
-            if (navCenter.style.display === 'none') {
-                navCenter.style.display = 'flex';
+            if (navRight.style.display === 'none') {
                 navRight.style.display = 'flex';
             } else {
-                navCenter.style.display = 'none';
                 navRight.style.display = 'none';
             }
         }
@@ -243,24 +251,43 @@
             document.getElementById('loginPage').style.display = 'block';
         }
 
-        function registerUser() {
-            alert("User registered successfully. Redirecting to login page.");
-            document.getElementById('registerPage').style.display = 'none';
-            showLoginPage();
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                loggedIn = true;
+                currentUser = user;
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('registerBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'block';
+                document.getElementById('cartBtn').style.display = 'block';
+                document.getElementById('loginPage').style.display = 'none';
+                alert("Logged in successfully.");
+                showUserProfile();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
         }
 
-        function login() {
-            loggedIn = true;
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('registerBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('cartBtn').style.display = 'block';
-            alert("Logged in successfully.");
-            document.getElementById('loginPage').style.display = 'none';
+        function registerUser() {
+            const newUsername = document.getElementById('newUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            if (newUsername && newPassword) {
+                const newUser = { username: newUsername, password: newPassword, status: 'pending' };
+                users.push(newUser);
+                alert("User registered successfully. Redirecting to login page.");
+                document.getElementById('registerPage').style.display = 'none';
+                showLoginPage();
+            }
         }
 
         function logout() {
             loggedIn = false;
+            currentUser = null;
             document.getElementById('loginBtn').style.display = 'block';
             document.getElementById('registerBtn').style.display = 'block';
             document.getElementById('logoutBtn').style.display = 'none';
@@ -268,16 +295,31 @@
             alert("Logged out successfully.");
         }
 
-        function showCart() {
-            showPage('cart');
-            const cartItems = document.getElementById('cartItems');
-            cartItems.innerHTML = '';
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - $${item.price}`;
-                cartItems.appendChild(li);
-            });
+        function showUserProfile() {
+            if (currentUser) {
+                document.getElementById('userNameDisplay').textContent = currentUser.username;
+                document.getElementById('userStatus').textContent = currentUser.status;
+                document.getElementById('userProfile').style.display = 'block';
+            }
         }
+
+        function editProfile() {
+            document.getElementById('editProfile').style.display = 'block';
+        }
+
+        function updateProfile() {
+            const updatedUsername = document.getElementById('updatedUsername').value;
+            const updatedPassword = document.getElementById('updatedPassword').value;
+
+            if (updatedUsername && updatedPassword) {
+                currentUser.username = updatedUsername;
+                currentUser.password = updatedPassword;
+                alert("Profile updated successfully.");
+                document.getElementById('editProfile').style.display = 'none';
+                showUserProfile();
+            }
+        }
+
     </script>
 </body>
 </html>
