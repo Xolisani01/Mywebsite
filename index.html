@@ -9,6 +9,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header, footer {
             background-color: skyblue;
@@ -26,71 +29,30 @@
             align-items: center;
             background-color: #444;
             padding: 0 10px;
+            flex-wrap: wrap;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
         }
         nav .nav-center {
             display: flex;
             justify-content: center;
             flex-grow: 1;
         }
-        nav a {
+        nav .nav-center a {
             color: white;
             padding: 14px 20px;
             text-decoration: none;
             text-align: center;
         }
-        nav a:hover {
+        nav .nav-center a:hover {
             background-color: #555;
-        }
-        .container {
-            display: none;
-            padding: 20px;
-        }
-        .container.active {
-            display: block;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .column {
-            flex: 50%;
-            padding: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .footer-icons {
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-        }
-        .footer-icons a {
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-        }
-        .footer-icons a:hover {
-            color: #ddd;
-        }
-        .menu-toggle {
-            display: none;
-            background-color: #444;
-            color: white;
-            padding: 14px 20px;
-            text-align: center;
-            cursor: pointer;
         }
         .nav-right {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         .nav-right button {
             background-color: #444;
@@ -102,21 +64,42 @@
         .nav-right button:hover {
             background-color: #555;
         }
+        .menu-toggle {
+            display: none;
+            background-color: #444;
+            color: white;
+            padding: 14px 20px;
+            cursor: pointer;
+        }
+        .container {
+            display: none;
+            padding: 20px;
+        }
+        .container.active {
+            display: block;
+        }
+        footer {
+            margin-top: auto;
+        }
         @media (max-width: 600px) {
-            nav {
-                display: flex;
-                flex-direction: column;
+            .nav-left {
+                flex-grow: 1;
             }
-            nav a {
-                padding: 10px;
+            nav {
+                flex-direction: column;
             }
             .menu-toggle {
                 display: block;
+                order: 1;
+            }
+            .nav-center {
+                display: none;
+                width: 100%;
             }
             .nav-right {
-                display: none; /* Hide nav buttons on mobile */
-                flex-direction: column;
+                display: none;
                 width: 100%;
+                flex-direction: column;
             }
             .nav-right button {
                 width: 100%;
@@ -126,7 +109,7 @@
 </head>
 <body>
     <nav>
-        <div class="nav-left">     
+        <div class="nav-left">
             <img src="img/logo.png" alt="Logo">
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
@@ -137,8 +120,8 @@
             <a href="#contact" onclick="showPage('contact')">Contact</a>
         </div>
         <div class="nav-right">
-            <button id="registerBtn" onclick="register()">Register</button>
-            <button id="loginBtn" onclick="login()">Login</button>
+            <button id="registerBtn" onclick="showRegisterPage()">Register</button>
+            <button id="loginBtn" onclick="showLoginPage()">Login</button>
             <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
             <button id="cartBtn" onclick="showCart()" style="display:none;">Cart</button>
         </div>
@@ -195,6 +178,18 @@
         <ul id="cartItems"></ul>
         <button onclick="checkout()">Checkout</button>
     </div>
+    <div class="container" id="loginPage" style="display:none;">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username"><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="login()">Login</button>
+    </div>
+    <div class="container" id="registerPage" style="display:none;">
+        <h2>Register</h2>
+        <input type="text" id="newUsername" placeholder="Username"><br>
+        <input type="password" id="newPassword" placeholder="Password"><br>
+        <button onclick="registerUser()">Register</button>
+    </div>
     <footer>
         <div class="footer-icons">
             <a href="https://facebook.com" target="_blank">Facebook</a>
@@ -203,6 +198,7 @@
         </div>
         <p>&copy; 2024 Engineering Services</p>
     </footer>
+
     <script>
         let cart = [];
         let loggedIn = false;
@@ -226,18 +222,31 @@
         }
 
         function toggleMenu() {
+            const navCenter = document.querySelector('.nav-center');
             const navRight = document.querySelector('.nav-right');
             
             // Toggle the visibility of the buttons on mobile
-            if (navRight.style.display === 'none') {
+            if (navCenter.style.display === 'none') {
+                navCenter.style.display = 'flex';
                 navRight.style.display = 'flex';
             } else {
+                navCenter.style.display = 'none';
                 navRight.style.display = 'none';
             }
         }
 
-        function register() {
-            alert("Register functionality to be implemented.");
+        function showRegisterPage() {
+            document.getElementById('registerPage').style.display = 'block';
+        }
+
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'block';
+        }
+
+        function registerUser() {
+            alert("User registered successfully. Redirecting to login page.");
+            document.getElementById('registerPage').style.display = 'none';
+            showLoginPage();
         }
 
         function login() {
@@ -247,6 +256,7 @@
             document.getElementById('logoutBtn').style.display = 'block';
             document.getElementById('cartBtn').style.display = 'block';
             alert("Logged in successfully.");
+            document.getElementById('loginPage').style.display = 'none';
         }
 
         function logout() {
