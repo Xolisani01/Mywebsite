@@ -131,7 +131,7 @@
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
-    <div class="container" id="services">
+   <div class="container" id="services">
         <h2>Our Services</h2>
         <div class="row">
             <div class="column">
@@ -146,34 +146,65 @@
             </div>
         </div>
     </div>
-    <div class="container home-background" id="products">
+    <div class="container" id="products">
         <h2>Our Products</h2>
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Buy</th>
-            </tr>
-            <tr>
-                <td>Product 1</td>
-                <td>High-quality engineering product.</td>
-                <td>$100</td>
-                <td><button onclick="addToCart('Product 1', 100)">Add to Cart</button></td>
-            </tr>
-            <tr>
-                <td>Product 2</td>
-                <td>Durable and reliable product.</td>
-                <td>$150</td>
-                <td><button onclick="addToCart('Product 2', 150)">Add to Cart</button></td>
-            </tr>
-        </table>
+        <div class="product-grid">
+            <div class="product-item">
+                <img src="product1.jpg" alt="Product 1">
+                <p>Description of Product 1</p>
+                <p>$100</p>
+                <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product2.jpg" alt="Product 2">
+                <p>Description of Product 2</p>
+                <p>$150</p>
+                <button onclick="addToCart('Product 2', 150)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product3.jpg" alt="Product 3">
+                <p>Description of Product 3</p>
+                <p>$200</p>
+                <button onclick="addToCart('Product 3', 200)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product4.jpg" alt="Product 4">
+                <p>Description of Product 4</p>
+                <p>$250</p>
+                <button onclick="addToCart('Product 4', 250)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product5.jpg" alt="Product 5">
+                <p>Description of Product 5</p>
+                <p>$120</p>
+                <button onclick="addToCart('Product 5', 120)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product6.jpg" alt="Product 6">
+                <p>Description of Product 6</p>
+                <p>$180</p>
+                <button onclick="addToCart('Product 6', 180)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product7.jpg" alt="Product 7">
+                <p>Description of Product 7</p>
+                <p>$300</p>
+                <button onclick="addToCart('Product 7', 300)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product8.jpg" alt="Product 8">
+                <p>Description of Product 8</p>
+                <p>$350</p>
+                <button onclick="addToCart('Product 8', 350)">Add to Cart</button>
+            </div>
+        </div>
     </div>
-    <div class="container home-background" id="contact">
+    <div class="container" id="contact">
         <h2>Contact Us</h2>
         <p>Email: info@engineeringservices.com</p>
         <p>Phone: +123 456 7890</p>
     </div>
+
     <div class="container home-background" id="cart" style="display:none;">
         <h2>Your Cart</h2>
         <ul id="cartItems"></ul>
