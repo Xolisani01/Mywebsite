@@ -105,9 +105,20 @@
         .container {
             display: none;
             padding: 20px;
+            min-height: 100vh;
         }
         .container.active {
             display: block;
+        }
+        .home-background {
+            background-image: url('home.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding: 50px;
         }
         .product-grid {
             display: grid;
@@ -162,7 +173,7 @@
 <body>
     <nav>
         <div class="nav-left">
-            <img src="img/xlogo.png" alt="Logo">
+            <img src="img/logo.png" alt="Logo">
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
@@ -182,7 +193,7 @@
         </div>
     </nav>
 
-    <div class="container" id="home" class="active">
+    <div class="container home-background" id="home" class="active">
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
@@ -230,7 +241,7 @@
             </div>
         </div>
     </div>
-    <div class="container" id="contact">
+    <div class="container" id="contact" class="home-background">
         <h2>Contact Us</h2>
         <p>Email: info@engineeringservices.com</p>
         <p>Phone: +123 456 7890</p>
@@ -247,9 +258,9 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
             </a>
             <a href="https://twitter.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_2021.svg" alt="Twitter">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2012.svg" alt="Twitter">
             </a>
-            <a href="https://linkedin.com" target="_blank">
+            <a href="https://www.linkedin.com" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/LinkedIn_Logo_2023.svg" alt="LinkedIn">
             </a>
         </div>
@@ -260,8 +271,8 @@
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.container');
-            pages.forEach(page => page.style.display = 'none');
-            document.getElementById(pageId).style.display = 'block';
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
         }
 
         function showRegisterPage() {
@@ -291,6 +302,9 @@
         function checkout() {
             alert('Proceeding to checkout...');
         }
+
+        // Show Home Page initially
+        showPage('home');
     </script>
 </body>
 </html>
