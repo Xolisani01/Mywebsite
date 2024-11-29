@@ -12,6 +12,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: white;
         }
         header, footer {
             background-color: skyblue;
@@ -56,36 +57,14 @@
         }
         .nav-right button {
             color: white;
-            border: 1px solid #ccc; /* Border for buttons */
+            border: 1px solid #ccc; 
             padding: 14px 20px;
             cursor: pointer;
             border-radius: 5px;
-            background-color: transparent; /* No background color */
+            background-color: transparent;
         }
         .nav-right button:hover {
             opacity: 0.8;
-        }
-        .cart-icon {
-            background-color: #444;
-            color: white;
-            border-radius: 50%;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            position: relative;
-        }
-        .cart-icon i {
-            font-size: 1.5rem;
-        }
-        .cart-icon span {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 50%;
         }
         .menu-toggle {
             display: none;
@@ -102,6 +81,15 @@
         .container.active {
             display: block;
         }
+        .center-content {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            color: black;
+        }
         .home-background {
             background-image: url('home.jpg');
             background-size: cover;
@@ -112,53 +100,12 @@
             text-align: center;
             padding: 50px;
         }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-        .product-item {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .product-item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .product-item button {
-            background-color: #444;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-        }
-        .product-item button:hover {
-            background-color: #555;
-        }
         footer {
             margin-top: auto;
         }
         footer .social-media-icons img {
             width: 40px;
             margin: 5px;
-        }
-        @media (max-width: 800px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 500px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -167,7 +114,6 @@
         <div class="nav-left">
             <img src="img/logo.png" alt="Logo">
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
             <a href="#" onclick="showPage('home')">Home</a>
             <a href="#" onclick="showPage('services')">Services</a>
@@ -178,10 +124,6 @@
             <button id="registerBtn" onclick="showRegisterPage()">Register</button>
             <button id="loginBtn" onclick="showLoginPage()">Login</button>
             <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
-            <div class="cart-icon" id="cartBtn" onclick="showCart()">
-                <i class="fa fa-shopping-cart"></i>
-                <span id="cartCount" style="display:none;">0</span>
-            </div>
         </div>
     </nav>
 
@@ -189,36 +131,45 @@
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
-    <div class="container" id="services">
-        <h2>Our Services</h2>
-        <div class="row">
-            <div class="column">
-                <h3>Product Design</h3>
-                <p>We provide innovative product design solutions to meet your needs.</p>
-                <img src="design1.jpg" alt="Product Design 1" style="width:100%">
-            </div>
-            <div class="column">
-                <h3>Structuring</h3>
-                <p>Our structuring services ensure your products are built to last.</p>
-                <img src="design2.jpg" alt="Product Design 2" style="width:100%">
-            </div>
+
+    <div class="container" id="register" style="display:none;">
+        <div class="center-content">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="registerUsername">Username:</label>
+                <input type="text" id="registerUsername" name="username" required>
+                <br><br>
+                <label for="registerPassword">Password:</label>
+                <input type="password" id="registerPassword" name="password" required>
+                <br><br>
+                <button type="button" onclick="register()">Register</button>
+            </form>
         </div>
     </div>
-    <div class="container" id="products">
-        <h2>Our Products</h2>
-        <div class="product-grid" id="product-list">
-            <!-- Product items will be added here -->
+
+    <div class="container" id="login" style="display:none;">
+        <div class="center-content">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" name="username" required>
+                <br><br>
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="password" required>
+                <br><br>
+                <button type="button" onclick="login()">Login</button>
+            </form>
         </div>
     </div>
-    <div class="container" id="contact" class="home-background">
-        <h2>Contact Us</h2>
-        <p>Email: info@engineeringservices.com</p>
-        <p>Phone: +123 456 7890</p>
+
+    <div class="container" id="userPage" style="display:none;">
+        <h2>User Dashboard</h2>
+        <p>Welcome, User! This is your user dashboard.</p>
     </div>
-    <div class="container" id="cart" style="display:none;">
-        <h2>Your Cart</h2>
-        <ul id="cartItems"></ul>
-        <button onclick="checkout()">Checkout</button>
+
+    <div class="container" id="adminPage" style="display:none;">
+        <h2>Admin Dashboard</h2>
+        <p>Welcome, Admin! This is your admin dashboard.</p>
     </div>
 
     <footer>
@@ -237,8 +188,10 @@
 
     <script>
         let loggedIn = false;
-        let cartCount = 0;
-        let cartItems = [];
+        let isAdmin = false;
+
+        // Show home page initially
+        showPage('home');
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.container');
@@ -247,85 +200,49 @@
         }
 
         function showRegisterPage() {
-            alert("Redirecting to register page...");
-            showPage('register'); // You can implement the register form here
+            showPage('register');
         }
 
         function showLoginPage() {
-            alert("Redirecting to login page...");
-            showPage('login'); // You can implement the login form here
+            showPage('login');
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Dummy credentials for demonstration purposes
+            if (username === "admin" && password === "admin123") {
+                isAdmin = true;
+                loggedIn = true;
+                alert("Admin login successful!");
+                showPage('adminPage');
+            } else if (username === "user" && password === "user123") {
+                isAdmin = false;
+                loggedIn = true;
+                alert("User login successful!");
+                showPage('userPage');
+            } else {
+                alert("Invalid username or password.");
+            }
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            // For now, this just shows a message. In a real app, you would store the credentials securely.
+            alert(`User registered: ${username}`);
         }
 
         function logout() {
             loggedIn = false;
+            isAdmin = false;
+            alert("You have logged out.");
             document.getElementById('logoutBtn').style.display = 'none';
             document.getElementById('loginBtn').style.display = 'block';
             document.getElementById('registerBtn').style.display = 'block';
-            document.getElementById('cartBtn').style.display = 'none';
-            alert("You have logged out.");
+            showPage('home');
         }
-
-        function addToCart(product, price) {
-            if (!loggedIn) {
-                alert("You must be logged in to add items to the cart.");
-                let loginChoice = confirm("Would you like to log in or register?");
-                if (loginChoice) {
-                    showLoginPage();
-                } else {
-                    showRegisterPage();
-                }
-                return;
-            }
-
-            cartCount++;
-            document.getElementById('cartCount').textContent = cartCount;
-            document.getElementById('cartCount').style.display = 'block';
-            cartItems.push({ product, price });
-        }
-
-        function showCart() {
-            showPage('cart');
-            let cartList = document.getElementById('cartItems');
-            cartList.innerHTML = '';
-            cartItems.forEach(item => {
-                let li = document.createElement('li');
-                li.textContent = `${item.product} - $${item.price}`;
-                cartList.appendChild(li);
-            });
-        }
-
-        function checkout() {
-            alert('Proceeding to checkout...');
-        }
-
-        function addProductToPage(name, description, price, imgSrc) {
-            if (!loggedIn || !isAdmin) return; // Only allow if admin is logged in
-
-            let productGrid = document.getElementById('product-list');
-            let productDiv = document.createElement('div');
-            productDiv.classList.add('product-item');
-            productDiv.innerHTML = `
-                <img src="${imgSrc}" alt="${name}">
-                <p>${description}</p>
-                <p>$${price}</p>
-                <button onclick="addToCart('${name}', ${price})">Add to Cart</button>
-            `;
-            productGrid.appendChild(productDiv);
-        }
-
-        // Admin can add products
-        let isAdmin = false; // Change this value to simulate admin login
-
-        // Example of adding products
-        if (isAdmin) {
-            addProductToPage("Product 1", "Description of Product 1", 100, "product1.jpg");
-            addProductToPage("Product 2", "Description of Product 2", 150, "product2.jpg");
-            addProductToPage("Product 3", "Description of Product 3", 200, "product3.jpg");
-            addProductToPage("Product 4", "Description of Product 4", 250, "product4.jpg");
-        }
-
-        // Show Home Page initially
-        showPage('home');
     </script>
 </body>
 </html>
