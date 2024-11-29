@@ -10,14 +10,14 @@
             margin: 0;
             padding: 0;
         }
-        footer {
+        header, footer {
             background-color: skyblue;
             color: white;
             text-align: center;
             padding: 1em 0;
         }
-        nav-img {
-            width: auto;
+        header img {
+            width: 100px;
             height: auto;
         }
         nav {
@@ -104,7 +104,7 @@
         }
         @media (max-width: 600px) {
             nav {
-                display: none;
+                display: flex;
                 flex-direction: column;
             }
             nav a {
@@ -114,16 +114,22 @@
                 display: block;
             }
             .nav-right {
-                display: none; /* Hide the button section on mobile */
+                display: none; /* Hide nav buttons on mobile */
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-right button {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <nav>
-     <div class="nav-left">     
-      <img src="img/logo.png" widgt= "60px" height= 20pc" alt="Logo"></div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
+        <div class="nav-left">     
+            <img src="img/logo.png" alt="Logo">
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
             <a href="#home" onclick="showPage('home')">Home</a>
             <a href="#services" onclick="showPage('services')">Services</a>
@@ -209,7 +215,6 @@
         function checkout() {
             let total = cart.reduce((sum, item) => sum + item.price, 0);
             alert("Total amount: $" + total + ". Proceeding to checkout...");
-            // Here you would integrate with a payment gateway
         }
 
         function showPage(pageId) {
@@ -221,8 +226,14 @@
         }
 
         function toggleMenu() {
-            const nav = document.querySelector('nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            const navRight = document.querySelector('.nav-right');
+            
+            // Toggle the visibility of the buttons on mobile
+            if (navRight.style.display === 'none') {
+                navRight.style.display = 'flex';
+            } else {
+                navRight.style.display = 'none';
+            }
         }
 
         function register() {
@@ -257,9 +268,6 @@
                 cartItems.appendChild(li);
             });
         }
-
-        // Show the home page by default
-        showPage('home');
     </script>
 </body>
 </html>
