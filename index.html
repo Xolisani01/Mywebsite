@@ -131,7 +131,54 @@
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
-
+    <div class="container" id="services">
+        <h2>Our Services</h2>
+        <div class="row">
+            <div class="column">
+                <h3>Product Design</h3>
+                <p>We provide innovative product design solutions to meet your needs.</p>
+                <img src="design1.jpg" alt="Product Design 1" style="width:100%">
+            </div>
+            <div class="column">
+                <h3>Structuring</h3>
+                <p>Our structuring services ensure your products are built to last.</p>
+                <img src="design2.jpg" alt="Product Design 2" style="width:100%">
+            </div>
+        </div>
+    </div>
+    <div class="container" id="products">
+        <h2>Our Products</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Buy</th>
+            </tr>
+            <tr>
+                <td>Product 1</td>
+                <td>High-quality engineering product.</td>
+                <td>$100</td>
+                <td><button onclick="addToCart('Product 1', 100)">Add to Cart</button></td>
+            </tr>
+            <tr>
+                <td>Product 2</td>
+                <td>Durable and reliable product.</td>
+                <td>$150</td>
+                <td><button onclick="addToCart('Product 2', 150)">Add to Cart</button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="container" id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: info@engineeringservices.com</p>
+        <p>Phone: +123 456 7890</p>
+    </div>
+    <div class="container" id="cart" style="display:none;">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
     <div class="container home-background" id="register" style="display:none;">
         <div class="center-content">
             <h2>Register</h2>
