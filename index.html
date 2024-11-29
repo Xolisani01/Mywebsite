@@ -217,11 +217,17 @@
                 loggedIn = true;
                 alert("Admin login successful!");
                 showPage('adminPage');
+                document.getElementById('logoutBtn').style.display = 'block';
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('registerBtn').style.display = 'none';
             } else if (username === "user" && password === "user123") {
                 isAdmin = false;
                 loggedIn = true;
                 alert("User login successful!");
                 showPage('userPage');
+                document.getElementById('logoutBtn').style.display = 'block';
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('registerBtn').style.display = 'none';
             } else {
                 alert("Invalid username or password.");
             }
@@ -232,6 +238,7 @@
             const password = document.getElementById('registerPassword').value;
             // For now, this just shows a message. In a real app, you would store the credentials securely.
             alert(`User registered: ${username}`);
+            showPage('login');  // Redirect to login after registration
         }
 
         function logout() {
@@ -241,7 +248,7 @@
             document.getElementById('logoutBtn').style.display = 'none';
             document.getElementById('loginBtn').style.display = 'block';
             document.getElementById('registerBtn').style.display = 'block';
-            showPage('home');
+            showPage('home');  // Redirect to home after logout
         }
     </script>
 </body>
