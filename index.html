@@ -78,6 +78,37 @@
         .container.active {
             display: block;
         }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .product-item button {
+            background-color: #444;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .product-item button:hover {
+            background-color: #555;
+        }
         footer {
             margin-top: auto;
         }
@@ -85,28 +116,14 @@
             width: 40px;
             margin: 5px;
         }
-        @media (max-width: 600px) {
-            .nav-left {
-                flex-grow: 1;
+        @media (max-width: 800px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            nav {
-                flex-direction: column;
-            }
-            .menu-toggle {
-                display: block;
-                order: 1;
-            }
-            .nav-center {
-                display: none;
-                width: 100%;
-            }
-            .nav-right {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-            }
-            .nav-right button {
-                width: 100%;
+        }
+        @media (max-width: 500px) {
+            .product-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -114,7 +131,7 @@
 <body>
     <nav>
         <div class="nav-left">
-            <img src="img/logo.png" width= "auto" height="auto" alt="Logo">
+            <img src="img/logo.png" alt="Logo">
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
@@ -152,26 +169,56 @@
     </div>
     <div class="container" id="products">
         <h2>Our Products</h2>
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Buy</th>
-            </tr>
-            <tr>
-                <td>Product 1</td>
-                <td>High-quality engineering product.</td>
-                <td>$100</td>
-                <td><button onclick="addToCart('Product 1', 100)">Add to Cart</button></td>
-            </tr>
-            <tr>
-                <td>Product 2</td>
-                <td>Durable and reliable product.</td>
-                <td>$150</td>
-                <td><button onclick="addToCart('Product 2', 150)">Add to Cart</button></td>
-            </tr>
-        </table>
+        <div class="product-grid">
+            <div class="product-item">
+                <img src="product1.jpg" alt="Product 1">
+                <p>Description of Product 1</p>
+                <p>$100</p>
+                <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product2.jpg" alt="Product 2">
+                <p>Description of Product 2</p>
+                <p>$150</p>
+                <button onclick="addToCart('Product 2', 150)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product3.jpg" alt="Product 3">
+                <p>Description of Product 3</p>
+                <p>$200</p>
+                <button onclick="addToCart('Product 3', 200)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product4.jpg" alt="Product 4">
+                <p>Description of Product 4</p>
+                <p>$250</p>
+                <button onclick="addToCart('Product 4', 250)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product5.jpg" alt="Product 5">
+                <p>Description of Product 5</p>
+                <p>$120</p>
+                <button onclick="addToCart('Product 5', 120)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product6.jpg" alt="Product 6">
+                <p>Description of Product 6</p>
+                <p>$180</p>
+                <button onclick="addToCart('Product 6', 180)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product7.jpg" alt="Product 7">
+                <p>Description of Product 7</p>
+                <p>$300</p>
+                <button onclick="addToCart('Product 7', 300)">Add to Cart</button>
+            </div>
+            <div class="product-item">
+                <img src="product8.jpg" alt="Product 8">
+                <p>Description of Product 8</p>
+                <p>$350</p>
+                <button onclick="addToCart('Product 8', 350)">Add to Cart</button>
+            </div>
+        </div>
     </div>
     <div class="container" id="contact">
         <h2>Contact Us</h2>
@@ -183,34 +230,6 @@
         <ul id="cartItems"></ul>
         <button onclick="checkout()">Checkout</button>
     </div>
-    <div class="container" id="loginPage" style="display:none;">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username"><br>
-        <input type="password" id="password" placeholder="Password"><br>
-        <button onclick="login()">Login</button>
-        <p id="loginError" style="color:red; display:none;">Incorrect username or password.</p>
-    </div>
-    <div class="container" id="registerPage" style="display:none;">
-        <h2>Register</h2>
-        <input type="text" id="newUsername" placeholder="Username"><br>
-        <input type="password" id="newPassword" placeholder="Password"><br>
-        <input type="text" id="addressStreet" placeholder="Street"><br>
-        <input type="text" id="addressCity" placeholder="City"><br>
-        <input type="text" id="addressState" placeholder="State"><br>
-        <input type="text" id="addressStateCode" placeholder="State Code"><br>
-        <button onclick="registerUser()">Register</button>
-    </div>
-    <div class="container" id="userProfile" style="display:none;">
-        <h2>User Profile</h2>
-        <p>Username: <span id="userNameDisplay"></span></p>
-        <p>Status: <span id="userStatus"></span></p>
-        <button onclick="editProfile()">Edit Profile</button>
-        <div id="editProfile" style="display:none;">
-            <input type="text" id="updatedUsername" placeholder="New Username"><br>
-            <input type="password" id="updatedPassword" placeholder="New Password"><br>
-            <button onclick="updateProfile()">Update</button>
-        </div>
-    </div>
 
     <footer>
         <div class="social-media-icons">
@@ -218,20 +237,15 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
             </a>
             <a href="https://twitter.com" target="_blank">
-                <img src="https://th.bing.com/th/id/OIP.ZweGejPwbT5wwshQ2-8qUQHaHa?rs=1&pid=ImgDetMain" alt="Twitter">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_2021.svg" alt="Twitter">
             </a>
             <a href="https://linkedin.com" target="_blank">
-                <img src="https://th.bing.com/th/id/R.eae4d0ee63a360e0f6b0d2b151d9da34?rik=u6x6HrEDGbQC%2fQ&pid=ImgRaw&r=0" alt="LinkedIn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/LinkedIn_Logo_2023.svg" alt="LinkedIn">
             </a>
         </div>
-        <p>&copy; 2024 Engineering Services</p>
     </footer>
 
     <script>
-        let loggedIn = false;
-        let currentUser = null;
-        const users = [];
-
         function showPage(pageId) {
             // Hide all pages
             const pages = document.querySelectorAll('.container');
@@ -243,91 +257,17 @@
             document.getElementById(pageId).style.display = 'block';
         }
 
-        function showRegisterPage() {
-            showPage('registerPage');
+        function addToCart(product, price) {
+            const cartItems = document.getElementById('cartItems');
+            const li = document.createElement('li');
+            li.textContent = `${product} - $${price}`;
+            cartItems.appendChild(li);
+            document.getElementById('cartBtn').style.display = 'block';
         }
 
-        function showLoginPage() {
-            showPage('loginPage');
+        function checkout() {
+            alert('Proceeding to checkout...');
         }
-
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const user = users.find(u => u.username === username && u.password === password);
-
-            if (user) {
-                loggedIn = true;
-                currentUser = user;
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('registerBtn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'block';
-                document.getElementById('cartBtn').style.display = 'block';
-                showPage('home');
-                showUserProfile();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-
-        function registerUser() {
-            const newUsername = document.getElementById('newUsername').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const street = document.getElementById('addressStreet').value;
-            const city = document.getElementById('addressCity').value;
-            const state = document.getElementById('addressState').value;
-            const stateCode = document.getElementById('addressStateCode').value;
-
-            if (newUsername && newPassword && street && city && state && stateCode) {
-                const newUser = {
-                    username: newUsername,
-                    password: newPassword,
-                    status: 'pending',
-                    address: { street, city, state, stateCode }
-                };
-                users.push(newUser);
-                alert("User registered successfully. Redirecting to login page.");
-                showPage('loginPage');
-            }
-        }
-
-        function logout() {
-            loggedIn = false;
-            currentUser = null;
-            document.getElementById('loginBtn').style.display = 'block';
-            document.getElementById('registerBtn').style.display = 'block';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('cartBtn').style.display = 'none';
-            alert("Logged out successfully.");
-            showPage('home');
-        }
-
-        function showUserProfile() {
-            if (currentUser) {
-                document.getElementById('userNameDisplay').textContent = currentUser.username;
-                document.getElementById('userStatus').textContent = currentUser.status;
-                showPage('userProfile');
-            }
-        }
-
-        function editProfile() {
-            document.getElementById('editProfile').style.display = 'block';
-        }
-
-        function updateProfile() {
-            const updatedUsername = document.getElementById('updatedUsername').value;
-            const updatedPassword = document.getElementById('updatedPassword').value;
-
-            if (updatedUsername && updatedPassword) {
-                currentUser.username = updatedUsername;
-                currentUser.password = updatedPassword;
-                alert("Profile updated successfully.");
-                document.getElementById('editProfile').style.display = 'none';
-                showUserProfile();
-            }
-        }
-
     </script>
 </body>
 </html>
