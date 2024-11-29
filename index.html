@@ -81,6 +81,10 @@
         footer {
             margin-top: auto;
         }
+        footer .social-media-icons img {
+            width: 40px;
+            margin: 5px;
+        }
         @media (max-width: 600px) {
             .nav-left {
                 flex-grow: 1;
@@ -114,10 +118,10 @@
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
-            <a href="#home" onclick="showPage('home')">Home</a>
-            <a href="#services" onclick="showPage('services')">Services</a>
-            <a href="#products" onclick="showPage('products')">Products</a>
-            <a href="#contact" onclick="showPage('contact')">Contact</a>
+            <a href="#" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('services')">Services</a>
+            <a href="#" onclick="showPage('products')">Products</a>
+            <a href="#" onclick="showPage('contact')">Contact</a>
         </div>
         <div class="nav-right">
             <button id="registerBtn" onclick="showRegisterPage()">Register</button>
@@ -126,7 +130,8 @@
             <button id="cartBtn" onclick="showCart()" style="display:none;">Cart</button>
         </div>
     </nav>
-    <div class="container" id="home">
+
+    <div class="container" id="home" class="active">
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
@@ -189,6 +194,10 @@
         <h2>Register</h2>
         <input type="text" id="newUsername" placeholder="Username"><br>
         <input type="password" id="newPassword" placeholder="Password"><br>
+        <input type="text" id="addressStreet" placeholder="Street"><br>
+        <input type="text" id="addressCity" placeholder="City"><br>
+        <input type="text" id="addressState" placeholder="State"><br>
+        <input type="text" id="addressStateCode" placeholder="State Code"><br>
         <button onclick="registerUser()">Register</button>
     </div>
     <div class="container" id="userProfile" style="display:none;">
@@ -202,53 +211,44 @@
             <button onclick="updateProfile()">Update</button>
         </div>
     </div>
+
     <footer>
-        <div class="footer-icons">
-            <a href="https://facebook.com" target="_blank">Facebook</a>
-            <a href="https://twitter.com" target="_blank">Twitter</a>
-            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <div class="social-media-icons">
+            <a href="https://facebook.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+            </a>
+            <a href="https://twitter.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_2012.svg" alt="Twitter">
+            </a>
+            <a href="https://linkedin.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo_2023.png" alt="LinkedIn">
+            </a>
         </div>
         <p>&copy; 2024 Engineering Services</p>
     </footer>
 
     <script>
-        let users = [];
         let loggedIn = false;
         let currentUser = null;
-
-        function addToCart(product, price) {
-            cart.push({ product, price });
-            alert(product + " has been added to your cart.");
-        }
-
-        function checkout() {
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            alert("Total amount: $" + total + ". Proceeding to checkout...");
-        }
+        const users = [];
 
         function showPage(pageId) {
-            const containers = document.querySelectorAll('.container');
-            containers.forEach(container => {
-                container.classList.remove('active');
+            // Hide all pages
+            const pages = document.querySelectorAll('.container');
+            pages.forEach(page => {
+                page.style.display = 'none';
             });
-            document.getElementById(pageId).classList.add('active');
-        }
 
-        function toggleMenu() {
-            const navRight = document.querySelector('.nav-right');
-            if (navRight.style.display === 'none') {
-                navRight.style.display = 'flex';
-            } else {
-                navRight.style.display = 'none';
-            }
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'block';
         }
 
         function showRegisterPage() {
-            document.getElementById('registerPage').style.display = 'block';
+            showPage('registerPage');
         }
 
         function showLoginPage() {
-            document.getElementById('loginPage').style.display = 'block';
+            showPage('loginPage');
         }
 
         function login() {
@@ -264,8 +264,7 @@
                 document.getElementById('registerBtn').style.display = 'none';
                 document.getElementById('logoutBtn').style.display = 'block';
                 document.getElementById('cartBtn').style.display = 'block';
-                document.getElementById('loginPage').style.display = 'none';
-                alert("Logged in successfully.");
+                showPage('home');
                 showUserProfile();
             } else {
                 document.getElementById('loginError').style.display = 'block';
@@ -275,13 +274,21 @@
         function registerUser() {
             const newUsername = document.getElementById('newUsername').value;
             const newPassword = document.getElementById('newPassword').value;
+            const street = document.getElementById('addressStreet').value;
+            const city = document.getElementById('addressCity').value;
+            const state = document.getElementById('addressState').value;
+            const stateCode = document.getElementById('addressStateCode').value;
 
-            if (newUsername && newPassword) {
-                const newUser = { username: newUsername, password: newPassword, status: 'pending' };
+            if (newUsername && newPassword && street && city && state && stateCode) {
+                const newUser = {
+                    username: newUsername,
+                    password: newPassword,
+                    status: 'pending',
+                    address: { street, city, state, stateCode }
+                };
                 users.push(newUser);
                 alert("User registered successfully. Redirecting to login page.");
-                document.getElementById('registerPage').style.display = 'none';
-                showLoginPage();
+                showPage('loginPage');
             }
         }
 
@@ -293,13 +300,14 @@
             document.getElementById('logoutBtn').style.display = 'none';
             document.getElementById('cartBtn').style.display = 'none';
             alert("Logged out successfully.");
+            showPage('home');
         }
 
         function showUserProfile() {
             if (currentUser) {
                 document.getElementById('userNameDisplay').textContent = currentUser.username;
                 document.getElementById('userStatus').textContent = currentUser.status;
-                document.getElementById('userProfile').style.display = 'block';
+                showPage('userProfile');
             }
         }
 
