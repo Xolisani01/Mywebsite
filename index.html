@@ -91,14 +91,45 @@
             color: black;
         }
         .home-background {
-            background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/10/HD-Blank-Wallpaper.jpg');
+            background-image: url('home.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             height: 100vh;
-            color: white;
+            color: black; /* Black font color for home page */
             text-align: center;
             padding: 50px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .product-item button {
+            background-color: #444;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .product-item button:hover {
+            background-color: #555;
         }
         footer {
             margin-top: auto;
@@ -107,12 +138,22 @@
             width: 40px;
             margin: 5px;
         }
+        @media (max-width: 800px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 500px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-left">
-            <img src="img/xlogo.png" width="100px" height="100px" alt="Logo">
+            <img src="img/logo.png" alt="Logo">
         </div>
         <div class="nav-center">
             <a href="#" onclick="showPage('home')">Home</a>
@@ -131,7 +172,8 @@
         <h2>Welcome to Our Engineering Services</h2>
         <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
     </div>
-   <div class="container" id="services">
+
+    <div class="container" id="services" style="display:none;">
         <h2>Our Services</h2>
         <div class="row">
             <div class="column">
@@ -146,7 +188,8 @@
             </div>
         </div>
     </div>
-    <div class="container" id="products">
+
+    <div class="container" id="products" style="display:none;">
         <h2>Our Products</h2>
         <div class="product-grid">
             <div class="product-item">
@@ -173,81 +216,13 @@
                 <p>$250</p>
                 <button onclick="addToCart('Product 4', 250)">Add to Cart</button>
             </div>
-            <div class="product-item">
-                <img src="product5.jpg" alt="Product 5">
-                <p>Description of Product 5</p>
-                <p>$120</p>
-                <button onclick="addToCart('Product 5', 120)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product6.jpg" alt="Product 6">
-                <p>Description of Product 6</p>
-                <p>$180</p>
-                <button onclick="addToCart('Product 6', 180)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product7.jpg" alt="Product 7">
-                <p>Description of Product 7</p>
-                <p>$300</p>
-                <button onclick="addToCart('Product 7', 300)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product8.jpg" alt="Product 8">
-                <p>Description of Product 8</p>
-                <p>$350</p>
-                <button onclick="addToCart('Product 8', 350)">Add to Cart</button>
-            </div>
         </div>
     </div>
-    <div class="container" id="contact">
+
+    <div class="container" id="contact" style="display:none;">
         <h2>Contact Us</h2>
         <p>Email: info@engineeringservices.com</p>
         <p>Phone: +123 456 7890</p>
-    </div>
-
-    <div class="container home-background" id="cart" style="display:none;">
-        <h2>Your Cart</h2>
-        <ul id="cartItems"></ul>
-        <button onclick="checkout()">Checkout</button>
-    </div>
-    <div class="container home-background" id="register" style="display:none;">
-        <div class="center-content">
-            <h2>Register</h2>
-            <form id="registerForm">
-                <label for="registerUsername">Username:</label>
-                <input type="text" id="registerUsername" name="username" required>
-                <br><br>
-                <label for="registerPassword">Password:</label>
-                <input type="password" id="registerPassword" name="password" required>
-                <br><br>
-                <button type="button" onclick="register()">Register</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container home-background" id="login" style="display:none;">
-        <div class="center-content">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <label for="loginUsername">Username:</label>
-                <input type="text" id="loginUsername" name="username" required>
-                <br><br>
-                <label for="loginPassword">Password:</label>
-                <input type="password" id="loginPassword" name="password" required>
-                <br><br>
-                <button type="button" onclick="login()">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container home-background" id="userPage" style="display:none;">
-        <h2>User Dashboard</h2>
-        <p>Welcome, User! This is your user dashboard.</p>
-    </div>
-
-    <div class="container home-background" id="adminPage" style="display:none;">
-        <h2>Admin Dashboard</h2>
-        <p>Welcome, Admin! This is your admin dashboard.</p>
     </div>
 
     <footer>
@@ -256,20 +231,16 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
             </a>
             <a href="https://twitter.com" target="_blank">
-                <img src="https://freelogopng.com/images/all_img/1690643591twitter-x-logo-png.png" alt="Twitter">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2012.svg" alt="Twitter">
             </a>
             <a href="https://www.linkedin.com" target="_blank">
-                <img src="https://logospng.org/download/linkedin/logo-linkedin-icon-4096.png" alt="LinkedIn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/LinkedIn_Logo_2023.svg" alt="LinkedIn">
             </a>
         </div>
     </footer>
 
     <script>
-        let loggedIn = false;
-        let isAdmin = false;
-
-        // Show home page initially
-        showPage('home');
+        let cartCount = 0;
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.container');
@@ -277,57 +248,18 @@
             document.getElementById(pageId).classList.add('active');
         }
 
-        function showRegisterPage() {
-            showPage('register');
-        }
-
-        function showLoginPage() {
-            showPage('login');
-        }
-
-        function login() {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            // Dummy credentials for demonstration purposes
-            if (username === "admin" && password === "admin123") {
-                isAdmin = true;
-                loggedIn = true;
-                alert("Admin login successful!");
-                showPage('adminPage');
-                document.getElementById('logoutBtn').style.display = 'block';
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('registerBtn').style.display = 'none';
-            } else if (username === "user" && password === "user123") {
-                isAdmin = false;
-                loggedIn = true;
-                alert("User login successful!");
-                showPage('userPage');
-                document.getElementById('logoutBtn').style.display = 'block';
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('registerBtn').style.display = 'none';
-            } else {
-                alert("Invalid username or password.");
-            }
-        }
-
-        function register() {
-            const username = document.getElementById('registerUsername').value;
-            const password = document.getElementById('registerPassword').value;
-            // For now, this just shows a message. In a real app, you would store the credentials securely.
-            alert(`User registered: ${username}`);
-            showPage('login');  // Redirect to login after registration
+        function addToCart(product, price) {
+            cartCount++;
+            alert(`${product} added to cart. Total items: ${cartCount}`);
         }
 
         function logout() {
-            loggedIn = false;
-            isAdmin = false;
-            alert("You have logged out.");
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('loginBtn').style.display = 'block';
-            document.getElementById('registerBtn').style.display = 'block';
-            showPage('home');  // Redirect to home after logout
+            alert('Logged out');
+            showPage('home');
         }
+
+        // Show Home Page initially
+        showPage('home');
     </script>
 </body>
 </html>
