@@ -55,14 +55,45 @@
             gap: 10px;
         }
         .nav-right button {
-            background-color: #444;
             color: white;
             border: none;
             padding: 14px 20px;
             cursor: pointer;
+            border-radius: 5px;
         }
         .nav-right button:hover {
-            background-color: #555;
+            opacity: 0.8;
+        }
+        #registerBtn {
+            background-color: blue; /* Blue for Register */
+        }
+        #loginBtn {
+            background-color: green; /* Green for Login */
+        }
+        #logoutBtn {
+            background-color: gray; /* Gray for Logout */
+        }
+        .cart-icon {
+            background-color: #444;
+            color: white;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .cart-icon i {
+            font-size: 1.5rem;
+        }
+        .cart-icon span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 50%;
         }
         .menu-toggle {
             display: none;
@@ -131,7 +162,7 @@
 <body>
     <nav>
         <div class="nav-left">
-            <img src="img/xlogo.png" width="40px" Height="30px" alt="Logo">
+            <img src="img/logo.png" alt="Logo">
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">☰ Menu</div>
         <div class="nav-center">
@@ -144,7 +175,10 @@
             <button id="registerBtn" onclick="showRegisterPage()">Register</button>
             <button id="loginBtn" onclick="showLoginPage()">Login</button>
             <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
-            <button id="cartBtn" onclick="showCart()" style="display:none;">Cart</button>
+            <div class="cart-icon" id="cartBtn" onclick="showCart()">
+                <i class="fa fa-shopping-cart"></i>
+                <span id="cartCount" style="display:none;">0</span>
+            </div>
         </div>
     </nav>
 
@@ -194,30 +228,6 @@
                 <p>$250</p>
                 <button onclick="addToCart('Product 4', 250)">Add to Cart</button>
             </div>
-            <div class="product-item">
-                <img src="product5.jpg" alt="Product 5">
-                <p>Description of Product 5</p>
-                <p>$120</p>
-                <button onclick="addToCart('Product 5', 120)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product6.jpg" alt="Product 6">
-                <p>Description of Product 6</p>
-                <p>$180</p>
-                <button onclick="addToCart('Product 6', 180)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product7.jpg" alt="Product 7">
-                <p>Description of Product 7</p>
-                <p>$300</p>
-                <button onclick="addToCart('Product 7', 300)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product8.jpg" alt="Product 8">
-                <p>Description of Product 8</p>
-                <p>$350</p>
-                <button onclick="addToCart('Product 8', 350)">Add to Cart</button>
-            </div>
         </div>
     </div>
     <div class="container" id="contact">
@@ -246,23 +256,36 @@
     </footer>
 
     <script>
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.container');
-            pages.forEach(page => {
-                page.style.display = 'none';
-            });
+        let cartCount = 0;
 
-            // Show the selected page
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.container');
+            pages.forEach(page => page.style.display = 'none');
             document.getElementById(pageId).style.display = 'block';
         }
 
+        function showRegisterPage() {
+            showPage('register');
+        }
+
+        function showLoginPage() {
+            showPage('login');
+        }
+
+        function logout() {
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('registerBtn').style.display = 'block';
+        }
+
         function addToCart(product, price) {
-            const cartItems = document.getElementById('cartItems');
-            const li = document.createElement('li');
-            li.textContent = `${product} - $${price}`;
-            cartItems.appendChild(li);
-            document.getElementById('cartBtn').style.display = 'block';
+            cartCount++;
+            document.getElementById('cartCount').textContent = cartCount;
+            document.getElementById('cartCount').style.display = 'block';
+        }
+
+        function showCart() {
+            showPage('cart');
         }
 
         function checkout() {
