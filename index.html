@@ -9,257 +9,309 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: white;
         }
-        header, footer {
-            background-color: skyblue;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
-        }
-        header img {
-            width: 100px;
-            height: auto;
-        }
+        /* General Styles */
         nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #444;
-            padding: 0 10px;
-            flex-wrap: wrap;
+            position: relative;
         }
-        .nav-left {
+        #nav-left {
             display: flex;
             align-items: center;
         }
-        nav .nav-center {
+        #nav-left img {
+            height: 40px;
+            margin-right: 15px;
+        }
+        #nav-center {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
-            flex-grow: 1;
         }
-        nav .nav-center a {
+        #nav-center ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        #nav-center ul li {
+            margin: 0 15px;
+        }
+        #nav-center ul li a {
             color: white;
-            padding: 14px 20px;
             text-decoration: none;
-            text-align: center;
         }
-        nav .nav-center a:hover {
-            background-color: #555;
-        }
-        .nav-right {
+        #nav-right {
             display: flex;
+            gap: 15px;
             align-items: center;
-            gap: 10px;
         }
-        .nav-right button {
+        .button {
+            padding: 10px;
+            background-color: #555;
             color: white;
-            border: 1px solid #ccc; 
-            padding: 14px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: transparent;
-        }
-        .nav-right button:hover {
-            opacity: 0.8;
-        }
-        .menu-toggle {
-            display: none;
-            background-color: #444;
-            color: white;
-            padding: 14px 20px;
-            cursor: pointer;
-        }
-        .container {
-            display: none;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .container.active {
-            display: block;
-        }
-        .center-content {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            color: black;
-        }
-        .home-background {
-            background-image: url('home.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            color: black; /* Black font color for home page */
-            text-align: center;
-            padding: 50px;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-        .product-item {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .product-item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .product-item button {
-            background-color: #444;
-            color: white;
-            padding: 10px 15px;
             border: none;
             cursor: pointer;
         }
-        .product-item button:hover {
-            background-color: #555;
+        .hidden {
+            display: none;
         }
-        footer {
-            margin-top: auto;
+
+        /* Navbar toggle for mobile */
+        .navbar-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
         }
-        footer .social-media-icons img {
-            width: 40px;
-            margin: 5px;
-        }
-        @media (max-width: 800px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+        /* Mobile specific styles */
+        @media screen and (max-width: 768px) {
+            #nav-center ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #333;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding-top: 10px;
             }
-        }
-        @media (max-width: 500px) {
-            .product-grid {
-                grid-template-columns: 1fr;
+            #nav-center ul li {
+                text-align: center;
+                width: 100%;
+            }
+            #nav-center ul li a {
+                padding: 10px;
+                display: block;
+            }
+            .navbar-toggle {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 18px;
+            }
+            nav {
+                flex-direction: row-reverse;
+                justify-content: space-between;
+            }
+            #nav-center ul.show {
+                display: flex;
+            }
+            #nav-right {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-left">
-            <img src="img/logo.png" alt="Logo">
-        </div>
-        <div class="nav-center">
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('services')">Services</a>
-            <a href="#" onclick="showPage('products')">Products</a>
-            <a href="#" onclick="showPage('contact')">Contact</a>
-        </div>
-        <div class="nav-right">
-            <button id="registerBtn" onclick="showRegisterPage()">Register</button>
-            <button id="loginBtn" onclick="showLoginPage()">Login</button>
-            <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
-        </div>
-    </nav>
 
-    <div class="container " id="home" class="active">
-        <h2>Welcome to Our Engineering Services</h2>
-        <p>We offer comprehensive engineering guides and services, including product design and structuring.</p>
+<!-- Navigation Bar -->
+<nav>
+    <div id="nav-left">
+        <img src="logo.png" alt="Site Logo">
     </div>
-
-    <div class="container home-background" id="services" style="display:none;">
-        <h2>Our Services</h2>
-        <div class="row">
-            <div class="column">
-                <h3>Product Design</h3>
-                <p>We provide innovative product design solutions to meet your needs.</p>
-                <img src="design1.jpg" alt="Product Design 1" style="width:100%">
-            </div>
-            <div class="column">
-                <h3>Structuring</h3>
-                <p>Our structuring services ensure your products are built to last.</p>
-                <img src="design2.jpg" alt="Product Design 2" style="width:100%">
-            </div>
-        </div>
+    <!-- Toggle button for mobile (placed on the right) -->
+    <div class="navbar-toggle" onclick="toggleNav()">☰</div>
+    <div id="nav-center">
+        <ul id="nav-menu">
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('services')">Services</a></li>
+            <li><a href="#" onclick="showPage('products')">Products</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        </ul>
     </div>
-
-    <div class="container" id="products" style="display:none;">
-        <h2>Our Products</h2>
-        <div class="product-grid">
-            <div class="product-item">
-                <img src="product1.jpg" alt="Product 1">
-                <p>Description of Product 1</p>
-                <p>$100</p>
-                <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product2.jpg" alt="Product 2">
-                <p>Description of Product 2</p>
-                <p>$150</p>
-                <button onclick="addToCart('Product 2', 150)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product3.jpg" alt="Product 3">
-                <p>Description of Product 3</p>
-                <p>$200</p>
-                <button onclick="addToCart('Product 3', 200)">Add to Cart</button>
-            </div>
-            <div class="product-item">
-                <img src="product4.jpg" alt="Product 4">
-                <p>Description of Product 4</p>
-                <p>$250</p>
-                <button onclick="addToCart('Product 4', 250)">Add to Cart</button>
-            </div>
-        </div>
+    <div id="nav-right">
+        <button class="button hidden" id="login-btn" onclick="showPage('login')">Login</button>
+        <button class="button hidden" id="register-btn" onclick="showPage('register')">Register</button>
+        <button class="button hidden" id="logout-btn" onclick="logout()">Logout</button>
+        <button class="button hidden" id="cart-btn" onclick="showPage('cart')">Cart</button>
+        <button class="button hidden" id="settings-btn" onclick="showPage('admin-settings')">Settings</button>
     </div>
+</nav>
 
-    <div class="container" id="contact" style="display:none;">
-        <h2>Contact Us</h2>
-        <p>Email: info@engineeringservices.com</p>
-        <p>Phone: +123 456 7890</p>
+<!-- Main Content -->
+<div id="home" class="container">
+    <h1>Welcome to Engineering Services</h1>
+    <p>We provide high-quality code solutions for various programming languages.</p>
+</div>
+
+<div id="services" class="container hidden">
+    <h1>Services</h1>
+    <p>We offer programming services in various languages like Python, Java, C++, etc.</p>
+</div>
+
+<div id="products" class="container hidden">
+    <h1>Products</h1>
+    <input type="text" id="search-input" class="search-bar" placeholder="Search Products...">
+    <button onclick="searchProducts()">Search</button>
+    <div id="product-list">
+        <!-- Products will be displayed here -->
     </div>
+</div>
 
-    <footer>
-        <div class="social-media-icons">
-            <a href="https://facebook.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-            </a>
-            <a href="https://twitter.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2012.svg" alt="Twitter">
-            </a>
-            <a href="https://www.linkedin.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/LinkedIn_Logo_2023.svg" alt="LinkedIn">
-            </a>
-        </div>
-    </footer>
+<div id="contact" class="container hidden">
+    <h1>Contact</h1>
+    <p>You can contact us at: support@engineeringservices.com</p>
+</div>
 
-    <script>
-        let cartCount = 0;
+<!-- Login Page -->
+<div id="login" class="container hidden">
+    <h1>Login</h1>
+    <form id="login-form" onsubmit="login(event)">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" required><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+</div>
 
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.container');
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+<!-- Register Page -->
+<div id="register" class="container hidden">
+    <h1>Register</h1>
+    <form id="register-form" onsubmit="register(event)">
+        <label for="reg-username">Username:</label><br>
+        <input type="text" id="reg-username" required><br><br>
+        <label for="reg-password">Password:</label><br>
+        <input type="password" id="reg-password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<!-- Admin Area (hidden by default) -->
+<div id="admin-settings" class="container hidden">
+    <h1>Admin Settings</h1>
+    <button onclick="addProduct()">Add New Product</button>
+    <div id="admin-products"></div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    let currentUser = null;
+    let isAdmin = false;
+
+    // Show/Hide NavBar buttons based on login status
+    function updateNavbar() {
+        if (currentUser) {
+            // Hide login/register and show logout/cart/settings
+            document.getElementById('login-btn').classList.add('hidden');
+            document.getElementById('register-btn').classList.add('hidden');
+            document.getElementById('logout-btn').classList.remove('hidden');
+
+            // Cart is visible for regular users, Settings for admin
+            if (isAdmin) {
+                document.getElementById('cart-btn').classList.add('hidden');
+                document.getElementById('settings-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('cart-btn').classList.remove('hidden');
+                document.getElementById('settings-btn').classList.add('hidden');
+            }
+        } else {
+            // Hide logout/cart/settings and show login/register
+            document.getElementById('login-btn').classList.remove('hidden');
+            document.getElementById('register-btn').classList.remove('hidden');
+            document.getElementById('logout-btn').classList.add('hidden');
+            document.getElementById('cart-btn').classList.add('hidden');
+            document.getElementById('settings-btn').classList.add('hidden');
         }
+    }
 
-        function addToCart(product, price) {
-            cartCount++;
-            alert(`${product} added to cart. Total items: ${cartCount}`);
+    // Toggle mobile navigation
+    function toggleNav() {
+        document.getElementById("nav-menu").classList.toggle("show");
+    }
+
+    // Show pages
+    function showPage(page) {
+        document.querySelectorAll('.container').forEach(container => {
+            container.classList.add('hidden');
+        });
+        document.getElementById(page).classList.remove('hidden');
+    }
+
+    // Login function
+    function login(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Example authentication (replace with backend)
+        if (username === 'admin' && password === 'admin123') {
+            currentUser = username;
+            isAdmin = true;
+            updateNavbar();
+            showPage('admin-settings');
+        } else if (username === 'user' && password === 'user123') {
+            currentUser = username;
+            isAdmin = false;
+            updateNavbar();
+            showPage('products');
+        } else {
+            alert('Invalid login credentials');
         }
+    }
 
-        function logout() {
-            alert('Logged out');
-            showPage('home');
-        }
+    // Register function
+    function register(event) {
+        event.preventDefault();
+        const username = document.getElementById('reg-username').value;
+        const password = document.getElementById('reg-password').value;
+        alert('User registered: ' + username);
+    }
 
-        // Show Home Page initially
+    // Logout function
+    function logout() {
+        currentUser = null;
+        isAdmin = false;
+        updateNavbar();
         showPage('home');
-    </script>
+    }
+
+    // Search Products
+    function searchProducts() {
+        const query = document.getElementById("search-input").value.toLowerCase();
+        const products = [
+            { name: 'Python Code', price: 10 },
+            { name: 'JavaScript Code', price: 20 },
+            { name: 'Java Code', price: 15 }
+        ];
+        const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+
+        let productList = document.getElementById("product-list");
+        productList.innerHTML = '';
+        filteredProducts.forEach(product => {
+            let productItem = document.createElement("div");
+            productItem.innerHTML = `${product.name} - $${product.price}`;
+            productList.appendChild(productItem);
+        });
+    }
+
+    // Add Product (Admin only)
+    function addProduct() {
+        let productDiv = document.createElement("div");
+        productDiv.innerHTML = `
+            <input type="text" placeholder="Product Name">
+            <input type="number" placeholder="Price">
+            <button onclick="saveProduct()">Save Product</button>
+        `;
+        document.getElementById('admin-products').appendChild(productDiv);
+    }
+
+    // Save Product
+    function saveProduct() {
+        alert('Product saved!');
+    }
+
+    // Initialize with home page
+    showPage('home');
+    updateNavbar();
+</script>
+
 </body>
 </html>
