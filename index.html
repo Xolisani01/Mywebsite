@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
         }
+
         /* General Styles */
         nav {
             background-color: #333;
@@ -20,36 +21,48 @@
             align-items: center;
             position: relative;
         }
+
+        /* Logo Section (Left Side) */
         #nav-left {
             display: flex;
             align-items: center;
         }
+
         #nav-left img {
+            height: 40px;
             margin-right: 15px;
         }
+
+        /* Center Section (Menu Items) */
         #nav-center {
             flex-grow: 1;
             display: flex;
             justify-content: center;
         }
+
         #nav-center ul {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
         }
+
         #nav-center ul li {
             margin: 0 15px;
         }
+
         #nav-center ul li a {
             color: white;
             text-decoration: none;
         }
+
+        /* Right Section (Buttons) */
         #nav-right {
             display: flex;
             gap: 15px;
             align-items: center;
         }
+
         .button {
             padding: 10px;
             background-color: #555;
@@ -57,11 +70,12 @@
             border: none;
             cursor: pointer;
         }
+
         .hidden {
             display: none;
         }
 
-        /* Navbar toggle for mobile */
+        /* Navbar Toggle for Mobile */
         .navbar-toggle {
             display: none;
             font-size: 30px;
@@ -81,27 +95,34 @@
                 left: 0;
                 padding-top: 10px;
             }
+
             #nav-center ul li {
                 text-align: center;
                 width: 100%;
             }
+
             #nav-center ul li a {
                 padding: 10px;
                 display: block;
             }
+
+            /* Show the toggle button on mobile */
             .navbar-toggle {
                 display: block;
                 position: absolute;
                 right: 20px;
                 top: 18px;
             }
+
             nav {
                 flex-direction: row-reverse;
                 justify-content: space-between;
             }
+
             #nav-center ul.show {
                 display: flex;
             }
+
             #nav-right {
                 display: none;
             }
@@ -112,11 +133,15 @@
 
 <!-- Navigation Bar -->
 <nav>
+    <!-- Left Section (Logo) -->
     <div id="nav-left">
-        <img src="img/logo.png" width="120" height="100" alt="Site Logo">
+        <img src="logo.png" alt="Site Logo">
     </div>
-    <!-- Toggle button for mobile (placed on the right) -->
+
+    <!-- Toggle Button for Mobile (on the right side) -->
     <div class="navbar-toggle" onclick="toggleNav()">☰</div>
+
+    <!-- Center Section (Navigation Links) -->
     <div id="nav-center">
         <ul id="nav-menu">
             <li><a href="#" onclick="showPage('home')">Home</a></li>
@@ -125,6 +150,8 @@
             <li><a href="#" onclick="showPage('contact')">Contact</a></li>
         </ul>
     </div>
+
+    <!-- Right Section (Login/Register/Logout/Cart) -->
     <div id="nav-right">
         <button class="button hidden" id="login-btn" onclick="showPage('login')">Login</button>
         <button class="button hidden" id="register-btn" onclick="showPage('register')">Register</button>
@@ -256,14 +283,6 @@
         }
     }
 
-    // Register function
-    function register(event) {
-        event.preventDefault();
-        const username = document.getElementById('reg-username').value;
-        const password = document.getElementById('reg-password').value;
-        alert('User registered: ' + username);
-    }
-
     // Logout function
     function logout() {
         currentUser = null;
@@ -272,7 +291,7 @@
         showPage('home');
     }
 
-    // Search Products
+    // Product Search
     function searchProducts() {
         const query = document.getElementById("search-input").value.toLowerCase();
         const products = [
@@ -291,23 +310,7 @@
         });
     }
 
-    // Add Product (Admin only)
-    function addProduct() {
-        let productDiv = document.createElement("div");
-        productDiv.innerHTML = `
-            <input type="text" placeholder="Product Name">
-            <input type="number" placeholder="Price">
-            <button onclick="saveProduct()">Save Product</button>
-        `;
-        document.getElementById('admin-products').appendChild(productDiv);
-    }
-
-    // Save Product
-    function saveProduct() {
-        alert('Product saved!');
-    }
-
-    // Initialize with home page
+    // Initialize the site
     showPage('home');
     updateNavbar();
 </script>
