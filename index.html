@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xolisani Engineering</title>
+    <title>Engineering Services</title>
     <style>
         /* General Styles */
         body {
@@ -25,9 +25,13 @@
         }
 
         /* Logo (on the left) */
-        #nav-left img{
+        #nav-left {
             display: flex;
             align-items: center;
+        }
+
+        #nav-left img {
+            height: 40px; /* Adjust logo size */
         }
 
         /* Center Section (Navigation Links) */
@@ -92,10 +96,7 @@
                 left: 0;
                 padding-top: 10px;
             }
-            #nav-left img {
-            display: flex;
-            align-items: center;
-            }
+
             #nav-center ul li {
                 text-align: center;
                 width: 100%;
@@ -111,11 +112,6 @@
                 position: absolute;
                 right: 20px;
                 top: 18px;
-            }
-
-            nav {
-                flex-direction: row-reverse;
-                justify-content: space-between;
             }
 
             #nav-center ul.show {
@@ -196,10 +192,10 @@
 
 <!-- Navbar -->
 <nav>
-    <div id="nav-left img">
-        <img src="img/logo.png" alt="Site Logo">
+    <div id="nav-left">
+        <img src="logo.png" alt="Site Logo"> <!-- Logo on the left -->
     </div>
-    <div class="navbar-toggle" onclick="toggleNav()">☰</div>
+    <div class="navbar-toggle" onclick="toggleNav()">☰</div> <!-- Toggle button for mobile -->
     <div id="nav-center">
         <ul id="nav-menu">
             <li><a href="#" onclick="showPage('home')">Home</a></li>
