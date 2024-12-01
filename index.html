@@ -62,7 +62,6 @@
             display: flex;
             gap: 15px;
             align-items: center;
-            flex-direction: column;
         }
 
         .button {
@@ -71,8 +70,6 @@
             color: white;
             border: none;
             cursor: pointer;
-            width: 100%;
-            text-align: center;
         }
 
         .hidden {
@@ -123,6 +120,12 @@
 
             #nav-right {
                 display: none;
+            }
+
+            /* Mobile buttons (login/register) in the toggle menu */
+            #nav-menu .mobile-buttons {
+                margin-top: 20px;
+                text-align: center;
             }
         }
 
@@ -187,7 +190,7 @@
 <!-- Navbar -->
 <nav>
     <div id="nav-left">
-        <img src="logo.png" alt="Site Logo"> <!-- Logo on the left -->
+        <img src="img/logo.png" alt="Site Logo"> <!-- Logo on the left -->
     </div>
     <div class="navbar-toggle" onclick="toggleNav()">☰</div> <!-- Toggle button for mobile -->
     <div id="nav-center">
