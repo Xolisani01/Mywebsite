@@ -31,7 +31,7 @@
         }
 
         #nav-left img {
-            height: 50px; /* Adjust logo size */
+            height: 40px; /* Adjust logo size */
         }
 
         /* Center Section (Navigation Links) */
@@ -61,7 +61,7 @@
         #nav-right {
             display: flex;
             gap: 15px;
-            align-items: right;
+            align-items: center;
         }
 
         .button {
@@ -120,6 +120,12 @@
 
             #nav-right {
                 display: none;
+            }
+
+            /* Mobile buttons (login/register) in the toggle menu */
+            #nav-menu .mobile-buttons {
+                margin-top: 20px;
+                text-align: center;
             }
         }
 
@@ -193,7 +199,7 @@
 <!-- Navbar -->
 <nav>
     <div id="nav-left">
-        <img src="img/logo.png" alt="Site Logo"> <!-- Logo on the left -->
+        <img src="logo.png" alt="Site Logo"> <!-- Logo on the left -->
     </div>
     <div class="navbar-toggle" onclick="toggleNav()">☰</div> <!-- Toggle button for mobile -->
     <div id="nav-center">
