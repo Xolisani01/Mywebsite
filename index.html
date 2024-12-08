@@ -1,371 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Services</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Website with Toggle Nav</title>
+  <style>
+    /* Global styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: #f4f4f4;
+    }
 
-        /* Navbar Styles */
-        nav {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
+    /* Ensuring the footer sticks to the bottom */
+    .content {
+      flex: 1; /* Take up all available space between header and footer */
+    }
 
-        /* Logo (on the left) */
-        #nav-left {
-            display: flex;
-            align-items: center;
-        }
+    /* Navigation Bar */
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between; /* Add space between logo and nav buttons */
+      align-items: center;
+      position: relative;
+    }
 
-        #nav-left img {
-            height: 40px; /* Adjust logo size */
-        }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-        /* Center Section (Navigation Links) */
-        #nav-center {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-        }
+    nav img {
+      width: 50px; /* Adjust the size of the image */
+      margin-right: 15px; /* Space between the image and the links */
+    }
 
-        #nav-center ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+    /* Hamburger Button (for mobile devices) */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 30px;
+      height: 25px;
+    }
 
-        #nav-center ul li {
-            margin: 0 15px;
-        }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 5px;
+    }
 
-        #nav-center ul li a {
-            color: white;
-            text-decoration: none;
-        }
+    /* Nav links container */
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
 
-        /* Right Section (Buttons) */
-        #nav-right {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+    .nav-links a {
+      margin-left: 20px;
+    }
 
-        .button {
-            padding: 10px;
-            background-color: #555;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    /* Container for the content */
+    .container {
+      width: 90%;
+      margin: 20px auto;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .row {
+      display: flex;
+      flex-wrap: wrap; /* Makes rows responsive */
+      margin-bottom: 20px;
+    }
 
-        /* Navbar Toggle for Mobile */
-        .navbar-toggle {
-            display: none;
-            font-size: 30px;
-            cursor: pointer;
-            color: white;
-        }
+    .column {
+      flex: 1;
+      padding: 10px;
+      box-sizing: border-box;
+    }
 
-        /* Mobile-specific styles */
-        @media screen and (max-width: 768px) {
-            #nav-center ul {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: #333;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                padding-top: 10px;
-            }
+    .column img {
+      width: 100%;
+      height: auto;
+    }
 
-            #nav-center ul li {
-                text-align: center;
-                width: 100%;
-            }
+    .services img {
+      height: 100px;
+      object-fit: cover;
+    }
 
-            #nav-center ul li a {
-                padding: 10px;
-                display: block;
-            }
+    .services h3, .services p {
+      text-align: center;
+    }
 
-            .navbar-toggle {
-                display: block;
-                position: absolute;
-                right: 20px;
-                top: 18px;
-            }
+    .services {
+      display: flex;
+      justify-content: space-between;
+    }
 
-            #nav-center ul.show {
-                display: flex;
-            }
+    .services .column {
+      padding: 10px;
+      box-sizing: border-box;
+    }
 
-            #nav-right {
-                display: none;
-            }
+    .article-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
 
-            /* Mobile buttons (login/register) in the toggle menu */
-            #nav-menu .mobile-buttons {
-                margin-top: 20px;
-                text-align: center;
-            }
-        }
+    .article-item {
+      width: 26%;
+      margin: 15px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s forwards;
+    }
 
-        /* Center Form Style */
-        .form-container {
-            background-color: #fff;
-            padding: 30px;
-            max-width: 400px;
-            margin: 50px auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .about-socials img {
+      width: 40px;
+      margin: 0 10px;
+    }
 
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
 
-        .form-container button:hover {
-            background-color: #555;
-        }
+    .contact-form button {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
 
-        /* Icon for login/register */
-        .icon {
-            font-size: 40px;
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
+    /* Hide all sections by default */
+    .page {
+      display: none;
+    }
 
-        /* Hidden by default for content sections */
-        .container {
-            display: none;
-        }
+    /* Active page style */
+    .page.active {
+      display: block;
+    }
 
-        .container.active {
-            display: block;
-        }
-    </style>
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .services {
+        flex-direction: column;
+      }
+
+      .article-item {
+        width: 100%;
+      }
+
+      .row {
+        flex-direction: column;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        display: none; /* Initially hide the nav links on mobile */
+      }
+
+      /* Show the hamburger icon only on mobile */
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+
+      h1, h2, h3 {
+        font-size: 1.2em;
+      }
+
+      .article-item {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      nav {
+        padding: 10px;
+      }
+
+      .services img {
+        height: 80px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Navigation Bar -->
 <nav>
-    <div id="nav-left">
-        <img src="img/logo.png" alt="Site Logo"> <!-- Logo on the left -->
-    </div>
-    <div class="navbar-toggle" onclick="toggleNav()">☰</div> <!-- Toggle button for mobile -->
-    <div id="nav-center">
-        <ul id="nav-menu">
-            <li><a href="#" onclick="showPage('home')">Home</a></li>
-            <li><a href="#" onclick="showPage('services')">Services</a></li>
-            <li><a href="#" onclick="showPage('products')">Products</a></li>
-            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
-        </ul>
-    </div>
-    <div id="nav-right">
-        <button class="button hidden" id="login-btn" onclick="showPage('login')">Login</button>
-        <button class="button hidden" id="register-btn" onclick="showPage('register')">Register</button>
-        <button class="button hidden" id="logout-btn" onclick="logout()">Logout</button>
-        <button class="button hidden" id="cart-btn" onclick="showPage('cart')">Cart</button>
-        <button class="button hidden" id="settings-btn" onclick="showPage('admin-settings')">Settings</button>
-    </div>
+  <!-- Add logo/image to the left of the nav bar -->
+  <img src="logo.png" alt="Logo">
+  
+  <!-- Hamburger Icon for mobile -->
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Nav Links (visible only on desktop, hidden on mobile by default) -->
+  <div class="nav-links" id="navLinks">
+    <a href="javascript:void(0)" onclick="showPage('home'); closeMenu()">Home</a>
+    <a href="javascript:void(0)" onclick="showPage('about'); closeMenu()">About</a>
+    <a href="javascript:void(0)" onclick="showPage('contact'); closeMenu()">Contact</a>
+    <a href="javascript:void(0)" onclick="showPage('articles'); closeMenu()">Articles</a>
+  </div>
 </nav>
 
-<!-- Main Content -->
-<div id="home" class="container active">
-    <h1>Welcome to Engineering Services</h1>
-    <p>We provide high-quality code solutions for various programming languages.</p>
-</div>
+<!-- Content Section -->
+<div class="content">
+  <!-- Home Page -->
+  <div class="container page" id="home">
+    <h1>This Website is still under development</h1>
+    <h1>Welcome to Our Website</h1>
 
-<div id="services" class="container">
-    <h1>Services</h1>
-    <p>We offer programming services in various languages like Python, Java, C++, etc.</p>
-</div>
-
-<div id="products" class="container">
-    <h1>Products</h1>
-    <input type="text" id="search-input" class="search-bar" placeholder="Search Products...">
-    <button onclick="searchProducts()">Search</button>
-    <div id="product-list">
-        <!-- Products will be displayed here -->
+    <div class="row services">
+      <div class="column">
+        <img src="clothing.jpg" alt="Clothing Shopping">
+        <h3>Clothing Shopping</h3>
+        <p>Discover the latest trends in fashion and clothing shopping.</p>
+      </div>
+      <div class="column">
+        <img src="coding.jpg" alt="Coding Shopping">
+        <h3>Coding Shopping</h3>
+        <p>Get the best tools and resources for coding and programming.</p>
+      </div>
+      <div class="column">
+        <img src="engineering.jpg" alt="Engineering Consulting">
+        <h3>Engineering Consulting</h3>
+        <p>Expert engineering advice and consulting services.</p>
+      </div>
+      <div class="column">
+        <img src="software.jpg" alt="Software Engineering">
+        <h3>Software Engineering</h3>
+        <p>Professional software engineering services and solutions.</p>
+      </div>
     </div>
+
+    <h2>Our Latest Articles</h2>
+    <div class="article-list">
+      <div class="article-item">
+        <img src="article1.jpg" alt="Article 1">
+        <h3>Article 1 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article1.html'">Read More</button>
+      </div>
+      <div class="article-item">
+        <img src="article2.jpg" alt="Article 2">
+        <h3>Article 2 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article2.html'">Read More</button>
+      </div>
+      <div class="article-item">
+        <img src="article3.jpg" alt="Article 3">
+        <h3>Article 3 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article3.html'">Read More</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Page -->
+  <div class="container page" id="about">
+    <h1>About Us</h1>
+    <div class="row">
+      <div class="column about-socials">
+        <a href="https://wa.me/+27793780995" target="_blank"><img src="whatsapp.png" alt="WhatsApp"></a>
+        <a href="https://facebook.com/yourpage" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+        <a href="https://https://Xolisani01.github.io/Portfolio-Xolisani/" target="_blank"><img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fillustration%2Fportfolio-icon.html&psig=AOvVaw2UOtCiEtZgpe4XSQ9m7DfT&ust=1733756295945000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOCt1dO3mIoDFQAAAAAdAAAAABAE" alt="Portfolio"></a>
+        <a href="https://twitter.com/yourprofile" target="_blank"><img src="twitter.png" alt="Twitter"></a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <h3>Founder & CEO</h3>
+        <p>Our founder and CEO, Xolisani Nyawo Nkambule, has putted so much hard work and dedication to establish many organizations on his legacy. Passionate about innovation and service, he has led the company to new heights.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Page -->
+  <div class="container page" id="contact">
+    <h1>Contact Us</h1>
+
+    <div class="contact-form">
+      <form action="submit_form.php" method="post">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Articles Page -->
+  <div class="container page" id="articles">
+    <h1>Articles</h1>
+
+    <div class="article-list">
+      <div class="article-item">
+        <img src="article1.jpg" alt="Article 1">
+        <h3>Article 1 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article1.html'">Read More</button>
+      </div>
+      <div class="article-item">
+        <img src="article2.jpg" alt="Article 2">
+        <h3>Article 2 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article2.html'">Read More</button>
+      </div>
+      <div class="article-item">
+        <img src="article3.jpg" alt="Article 3">
+        <h3>Article 3 Title</h3>
+        <p>Short description of the article.</p>
+        <button onclick="location.href='article3.html'">Read More</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="contact" class="container">
-    <h1>Contact</h1>
-    <p>You can contact us at: support@engineeringservices.com</p>
-</div>
+<!-- Footer -->
+<footer>
+  <p>© 2024 Your Website. All Rights Reserved.</p>
+</footer>
 
-<!-- Login Form -->
-<div id="login" class="form-container container">
-    <div class="icon">🔑</div>
-    <h2>Login</h2>
-    <form id="login-form" onsubmit="login(event)">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-</div>
-
-<!-- Register Form -->
-<div id="register" class="form-container container">
-    <div class="icon">📝</div>
-    <h2>Register</h2>
-    <form id="register-form" onsubmit="register(event)">
-        <input type="text" id="reg-username" placeholder="Username" required>
-        <input type="password" id="reg-password" placeholder="Password" required>
-        <button type="submit">Register</button>
-    </form>
-</div>
-
-<!-- Admin Settings -->
-<div id="admin-settings" class="container">
-    <h1>Admin Settings</h1>
-    <button onclick="addProduct()">Add New Product</button>
-    <div id="admin-products"></div>
-</div>
-
-<!-- JavaScript -->
 <script>
-    let currentUser = null;
-    let isAdmin = false;
+  // Function to show a specific page
+  function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    const selectedPage = document.getElementById(pageId);
+    selectedPage.classList.add('active');
+  }
 
-    // Show/Hide NavBar buttons based on login status
-    function updateNavbar() {
-        if (currentUser) {
-            document.getElementById('login-btn').classList.add('hidden');
-            document.getElementById('register-btn').classList.add('hidden');
-            document.getElementById('logout-btn').classList.remove('hidden');
+  // Function to toggle the nav menu on mobile
+  function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+  }
 
-            if (isAdmin) {
-                document.getElementById('cart-btn').classList.add('hidden');
-                document.getElementById('settings-btn').classList.remove('hidden');
-            } else {
-                document.getElementById('cart-btn').classList.remove('hidden');
-                document.getElementById('settings-btn').classList.add('hidden');
-            }
-        } else {
-            document.getElementById('login-btn').classList.remove('hidden');
-            document.getElementById('register-btn').classList.remove('hidden');
-            document.getElementById('logout-btn').classList.add('hidden');
-            document.getElementById('cart-btn').classList.add('hidden');
-            document.getElementById('settings-btn').classList.add('hidden');
-        }
-    }
+  // Function to close the menu when a link is clicked
+  function closeMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.style.display = 'open';
+  }
 
-    // Toggle mobile navigation
-    function toggleNav() {
-        document.getElementById("nav-menu").classList.toggle("show");
-    }
-
-    // Show pages
-    function showPage(page) {
-        document.querySelectorAll('.container').forEach(container => {
-            container.classList.remove('active');
-        });
-        document.getElementById(page).classList.add('active');
-    }
-
-    // Login function
-    function login(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        // Example authentication (replace with backend)
-        if (username === 'admin' && password === 'admin123') {
-            currentUser = username;
-            isAdmin = true;
-            updateNavbar();
-            showPage('admin-settings');
-        } else if (username === 'user' && password === 'user123') {
-            currentUser = username;
-            isAdmin = false;
-            updateNavbar();
-            showPage('products');
-        } else {
-            alert('Invalid login credentials');
-        }
-    }
-
-    // Register function
-    function register(event) {
-        event.preventDefault();
-        const username = document.getElementById('reg-username').value;
-        const password = document.getElementById('reg-password').value;
-        alert('Registered successfully!');
-        showPage('login');
-    }
-
-    // Logout function
-    function logout() {
-        currentUser = null;
-        isAdmin = false;
-        updateNavbar();
-        showPage('home');
-    }
-
-    // Product Search
-    function searchProducts() {
-        const query = document.getElementById("search-input").value.toLowerCase();
-        const products = [
-            { name: 'Python Code', price: 10 },
-            { name: 'JavaScript Code', price: 20 },
-            { name: 'Java Code', price: 15 }
-        ];
-        const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
-
-        let productList = document.getElementById("product-list");
-        productList.innerHTML = '';
-        filteredProducts.forEach(product => {
-            let productItem = document.createElement("div");
-            productItem.innerHTML = `${product.name} - $${product.price}`;
-            productList.appendChild(productItem);
-        });
-    }
-
-    // Initialize the site
+  // Show the home page by default on page load
+  window.onload = function() {
     showPage('home');
-    updateNavbar();
+  };
 </script>
 
 </body>
